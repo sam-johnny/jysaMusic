@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bienvenue !{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+    {{ encore_entry_link_tags('app') }}
+    {% block stylesheets %}{% endblock %}
+
+</head>
+<body class="bg-gray-900 text-gray-200 flex flex-col min-h-screen">
+<div class="flex-grow">
+    <nav class="sticky top-0 z-50 bg-gray-800 shadow-lg">
+    {% block navbar %}{{ include('_navbar_base.html.twig') }}{% endblock %}
+    </nav>
+
+    <div class="container mx-auto px-6 py-3">
+        {% block body %}{% endblock %}
+    </div>
+</div>
+
+{% block footer %}
+    <footer class="bg-gray-800 text-gray-300 py-6 mt-10">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-sm text-center md:text-left">© {{ "now"|date("Y") }} - JysaMusique. Tous droits
+                réservés.</p>
+            <div class="flex mt-4 md:m-0">
+                <a href="#" class="px-3 py-2 hover:text-white">Politique de confidentialité</a>
+                <a href="#" class="px-3 py-2 hover:text-white">Termes & Conditions</a>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{{ encore_entry_script_tags('app') }}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
+

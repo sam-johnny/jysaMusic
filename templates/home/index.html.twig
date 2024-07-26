@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - JysaMusique{% endblock %}
+
+{% block body %}
+    <div class="text-center mb-20">
+        <h1 class="text-3xl font-bold mb-4">Bienvenue sur Mon Application Symfony</h1>
+        <p>Ceci est un simple exemple utilisant Symfony UX et Tailwind CSS.</p>
+    </div>
+
+    <div class="grid grid-cols-6 gap-4 px-50">
+        <div class="text-center col-start-2 col-span-4 mb-20">
+            <h2 class="mb-3 font-bold text-4xl font-serif">Pourquoi choisir JysaMusic ?</h2>
+            <p class="mb-8">Écoute des millions de titres, podcasts et radios. Accède à ton application de musique
+                depuis tous tes appareils. Découvre nos fonctionnalités maison, les basiques comme les exclusives.</p>
+            <a href="#"
+               class="px-3 py-2 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold rounded-md">
+                Découvrir toutes nos fonctionnalités
+            </a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-6 px-50">
+        <div class="flex flex-col col-start-2 col-span-2 p-4 justify-center items-center">
+            <h2 class="mb-3 font-bold text-4xl font-serif">Un son de qualité studio, comme si tu y étais</h2>
+            <p class="mb-8">Avec JysaMusic, profite de la meilleure expérience d'écoute avec la qualité Haute
+                Fidélité.</p>
+            <a href="#"
+               class="px-3 py-2 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold rounded-md">
+                Découvrir la qualité HiFi
+            </a>
+        </div>
+        <div class="bg-gray-200 col-start-4 col-span-2">
+            <img class="max-w-full h-auto" src="{{ asset('images/home/discover_hifi.webp') }}"
+                 alt="Images découvrir la qualité HiFi">
+        </div>
+    </div>
+
+    <div class="grid grid-cols-6 px-50">
+        <div class="bg-gray-200 col-start-2 col-span-2">
+            <img class="max-w-full h-auto" src="{{ asset('images/home/phone_with_lyrics.webp') }}"
+                 alt="Images découvrir les paroles">
+        </div>
+        <div class="flex flex-col col-start-4 col-span-2 p-4 justify-center items-center">
+            <h2 class="mb-3 font-bold text-4xl font-serif">Les paroles de tes chansons préférées, traduites</h2>
+            <p class="mb-8">Chante avec les paroles et profite de leur traduction dans ta langue.</p>
+            <a href="#"
+               class="px-3 py-2 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold rounded-md">
+                Découvrir les paroles
+            </a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-6 px-50">
+        <div class="flex flex-col col-start-2 col-span-2 p-4 justify-center items-center">
+            <h2 class="mb-3 font-bold text-4xl font-serif">Votre musique, partout</h2>
+            <p class="mb-8">Accédez à votre musique sur n'importe quel appareil, que ce soit sur votre smartphone, tablette, ordinateur ou via votre système home cinéma.</p>
+            <a href="#"
+               class="px-3 py-2 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold rounded-md">
+                Découvrir toutes les appareils
+            </a>
+        </div>
+        <div class="bg-gray-200 col-start-4 col-span-2">
+            <img class="max-w-full h-auto" src="{{ asset('images/home/device.webp') }}"
+                 alt="Images découvrir la qualité HiFi">
+        </div>
+    </div>
+
+    <div class="grid grid-cols-6 px-50">
+        <div class="bg-gray-200 col-start-2 col-span-2">
+            <img class="max-w-full h-auto" src="{{ asset('images/home/offline_mode.webp') }}"
+                 alt="Images découvrir les paroles">
+        </div>
+        <div class="flex flex-col col-start-4 col-span-2 p-4 justify-center items-center">
+            <h2 class="mb-3 font-bold text-4xl font-serif">Écoute hors connexion</h2>
+            <p class="mb-8">Téléchargez vos chansons préférées et écoutez-les partout, même sans connexion Internet.</p>
+            <a href="#"
+               class="px-3 py-2 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold rounded-md">
+                Découvrir le mode hors ligne
+            </a>
+        </div>
+    </div>
+
+
+{% endblock %}
