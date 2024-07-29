@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use App\Validator\Constraints\AdvancedEmail;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -12,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints as CustomAssert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: "users")]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -26,7 +26,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email(
         message: "L'adresse email '{{ value }}' n'est pas valide.",
         mode: "strict"
-
     )]
     #[CustomAssert\AdvancedEmail]
     private ?string $email = null;
@@ -65,7 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $city = null;
 
     #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
+    private bool $isVerified = false;
 
     public function getId(): ?int
     {

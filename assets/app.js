@@ -10,29 +10,35 @@ import './styles/app.css';
 document.addEventListener('DOMContentLoaded', () => {
     toggleModal();
 });
-
 function toggleModal() {
     const openModalButton = document.getElementById('loginButton');
     const closeModalButton = document.getElementById('closeModalButton');
     const modal = document.getElementById('loginModal');
     const modalContent = document.querySelector('.modal-content');
 
-    openModalButton.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-    });
+    if (openModalButton) {
+        openModalButton.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+    }
 
-    closeModalButton.addEventListener('click', () => {
-        modal.classList.add('hidden');
-    });
-
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
             modal.classList.add('hidden');
-        }
-    });
+        });
+    }
 
-    modalContent.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
+    if (modal) {
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    }
+
+    if (modalContent) {
+        modalContent.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+    }
 }
-
