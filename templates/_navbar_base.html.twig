@@ -1,12 +1,12 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 mb-3">
     <div class="flex items-center justify-between">
         <div class="text-lg">
-            <a href="#">
+            <a href="{{ path('app_home') }}">
                 <img src="{{ asset('images/logo_site.webp') }}" alt="JysaMusique Logo" class="h-8" title="JysaMusique">
             </a>
         </div>
         <div class="hidden md:flex">
-            <a href="#" class="px-3 py-2 hover:border-b-2 border-blue-500">Accueil</a>
+            <a href="{{ path('app_home') }}" class="px-3 py-2 hover:border-b-2 border-blue-500">Accueil</a>
             <a href="#" class="px-3 py-2 hover:border-b-2 border-blue-500">Catégorie</a>
             <a href="#" class="px-3 py-2 hover:border-b-2 border-blue-500">Musique</a>
             <a href="#" class="px-3 py-2 hover:border-b-2 border-blue-500">Article</a>
