@@ -1,5 +1,5 @@
 # Utiliser l'image PHP avec FPM
-FROM php:8.2-fpm
+FROM php:8.2-fpm AS base
 
 # Installer les dépendances et extensions PHP nécessaires
 RUN apt-get update && apt-get install -y \
@@ -8,22 +8,24 @@ RUN apt-get update && apt-get install -y \
         git \
         libicu-dev \
         libfreetype-dev \
-    	libjpeg62-turbo-dev \
-    	libpng-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
         libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo  \
         pdo_pgsql \
         zip \
-        intl
+        intl \
+        opcache
 
+# Installer Redis et Xdebug
 RUN pecl install redis-5.3.7 \
-	&& pecl install xdebug-3.2.1 \
-	&& docker-php-ext-enable redis xdebug
+    && pecl install xdebug-3.2.1 \
+    && docker-php-ext-enable redis
 
 # Installer Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --version=2.7.0 --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/local/bin/composer
 
 # Installer Node.js
 RUN curl -sL https://deb.nodesource.com/setup_21.x | bash - && \
@@ -39,19 +41,33 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash \
 # Définir le répertoire de travail
 WORKDIR /var/www/jysa-radio
 
-# Copier le code source de l'application dans le conteneur
+# Copier le fichier php.ini personnalisé
+COPY docker/php.ini /usr/local/etc/php/
+
+# Copier les fichiers de votre application
 COPY . /var/www/jysa-radio
 
+# Changer le propriétaire des fichiers de l'application pour l'utilisateur www-data
+RUN chown -R www-data:www-data /var/www/jysa-radio
+
+# Copier les fichiers de configuration supplémentaires
+COPY docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY docker/php-fpm.conf /usr/local/etc/
+COPY docker/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+# Définir les variables d'environnement
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 # Installer les dépendances de l'application via Composer
 RUN composer install --no-interaction --no-scripts
 
+# Installer les dépendances et construire les assets via Yarn
+RUN yarn install
+RUN yarn build
+
 # Exposer le port 9000
 EXPOSE 9000
 
 # Démarrer PHP-FPM
 CMD ["php-fpm"]
-
-

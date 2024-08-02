@@ -2,45 +2,9 @@
 
 {% block title %}Register{% endblock %}
 
+{% block stylesheets %}{{ encore_entry_link_tags('app_register') }}{% endblock %}
+{% block javascripts %}{{ encore_entry_script_tags('app_register') }}{% endblock %}
+
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger mb-4" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <div class="grid grid-cols-8">
-        <h1 class="col-start-3 text-3xl font-bold mb-5">S'enregistrer</h1>
-        <div class="col-start-3 col-span-4 bg-gray-800 border border-gray-700 p-8 rounded-lg py-6">
-            {{ form_start(registrationForm, {'attr': {'class': 'space-y-4'}}) }}
-            <div class="grid grid-cols-4 mb-5">
-                <div class="col-start-2 col-span-2">
-                    {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-200 after:content-[\'*\'] after:ml-0.5 after:text-red-500'}}) }}
-                    {{ form_widget(registrationForm.email, {'attr': {'class': 'mt-1 block w-96 bg-gray-900 text-gray-200 border border-gray-700 rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500'}}) }}
-                    {{ form_errors(registrationForm.email, {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
-                </div>
-            </div>
-
-            <div class="grid grid-cols-4 mb-5">
-                <div class="col-start-2 col-span-2">
-                    {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 after:content-[\'*\'] after:ml-0.5 after:text-red-500'}}) }}
-                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'mt-1 block w-96 bg-gray-900 text-gray-200 border border-gray-700 rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500'}}) }}
-                    {{ form_errors(registrationForm.plainPassword, {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
-                </div>
-            </div>
-
-            <div class="grid grid-cols-4 mb-5">
-                <div class="col-start-2 col-span-2 flex justify-center">
-                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'mr-2'}}) }}
-                    {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'text-sm font-medium text-gray-200'}}) }}
-                </div>
-                {{ form_errors(registrationForm.agreeTerms, {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
-            </div>
-
-            <div class="flex justify-center">
-                <button type="submit"
-                        class="px-4 py-2 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold rounded-md">
-                    Register
-                </button>
-            </div>
-            {{ form_end(registrationForm) }}
-        </div>
-    </div>
+    <twig:register_form />
 {% endblock %}
