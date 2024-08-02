@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\UserRole;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -17,16 +18,16 @@ use App\Validator\Constraints as CustomAssert;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: "SEQUENCE")]
     #[ORM\Column(type: "integer")]
     private ?int $id = null;
 
     #[ORM\Column(type: "string", length: 180)]
     #[Assert\NotBlank()]
-    #[Assert\Email(
-        message: "L'adresse email '{{ value }}' n'est pas valide.",
-        mode: "strict"
-    )]
+    private ?string $username = null;
+
+    #[ORM\Column(type: "string", length: 180)]
+    #[Assert\NotBlank()]
     #[CustomAssert\AdvancedEmail]
     private ?string $email = null;
 
@@ -43,6 +44,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank()]
     private ?string $password = null;
 
+    #[Assert\NotBlank(message: 'Cette valeur ne doit pas être vide.')]
+    #[Assert\Length(
+        min: 6,
+        max: 4096,
+        minMessage: 'Votre mot de passe doit comporter au moins {{ limit }} caractères.'
+    )]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[A-Z])(?=.*\W).*$/',
+        message: 'Votre mot de passe doit contenir au moins une majuscule et un caractère spécial.'
+    )]
+    private ?string $plainPassword = null;
+
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
     private ?string $firstname = null;
@@ -55,6 +68,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank()]
     private ?string $address = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $complementAddress = null;
+
     #[ORM\Column(length: 10)]
     #[Assert\NotBlank()]
     private ?string $zipCode = null;
@@ -66,9 +82,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
+    #[Assert\IsTrue(message: 'Vous devez accepter nos termes.')]
+    private ?bool $agreeTerms;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): void
+    {
+        $this->username = $username;
     }
 
     public function getEmail(): ?string
@@ -100,9 +129,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        $roles = array_map(static fn(UserRole $role) => $role, $this->roles);
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = UserRole::USER;
 
         return array_unique($roles);
     }
@@ -112,7 +141,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setRoles(array $roles): static
     {
-        $this->roles = $roles;
+        $this->roles = array_map(static fn(string $role) => UserRole::from($role), $roles);
 
         return $this;
     }
@@ -130,6 +159,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     /**
@@ -177,6 +216,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getComplementAddress(): ?string
+    {
+        return $this->complementAddress;
+    }
+
+    public function setComplementAddress(?string $complementAddress): void
+    {
+        $this->complementAddress = $complementAddress;
+    }
+
     public function getZipCode(): ?string
     {
         return $this->zipCode;
@@ -211,5 +260,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    public function getAgreeTerms(): ?bool
+    {
+        return $this->agreeTerms;
+    }
+
+    public function setAgreeTerms(?bool $agreeTerms): void
+    {
+        $this->agreeTerms = $agreeTerms;
     }
 }
