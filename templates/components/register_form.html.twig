@@ -1,0 +1,200 @@
+<div{{ attributes }}>
+    {% if isSuccessful %}
+    <div class="text-green-500">Bienvenue {{ newUserEmail }}!</div>
+    {% else %}
+    <div class="grid grid-cols-8">
+        <h1 class="col-start-3 text-3xl font-bold mb-5">S'enregistrer</h1>
+        <div class="col-start-3 col-span-4 bg-gray-800 border border-gray-700 p-8 rounded-lg py-6">
+            {{ form_start(form, {
+                attr: {
+                    novalidate: true,
+                    'data-action': 'live#action:prevent',
+                    'data-live-action-param': 'saveRegistration',
+                }
+            }) }}
+
+            <div class="grid grid-cols-2 gap-5 mb-5">
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.email, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.email, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 '
+                                ~ (field_errors(form.email)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.email) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.username, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.username, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 '
+                                ~ (field_errors(form.username)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.username) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-5 mb-5">
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.plainPassword, 'Mot de passe', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.plainPassword, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:border-teal-500 '
+                                ~ (field_errors(form.plainPassword)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.plainPassword) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.repeatedPassword, 'Confirmer le mot de passe', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.repeatedPassword, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:border-teal-500 '
+                                ~ (field_errors(form.repeatedPassword)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.repeatedPassword) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-5 mb-5">
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.firstname, 'Prénom', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.firstname, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 '
+                                ~ (field_errors(form.firstname)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.firstname) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.lastname, 'Nom', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.lastname, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 '
+                                ~ (field_errors(form.lastname)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.lastname) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-5 mb-5">
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.address, 'Adresse', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.address, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 '
+                                ~ (field_errors(form.address)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.address) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.complementAddress, 'Complément d\'adresse', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.complementAddress, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 '
+                                ~ (field_errors(form.complementAddress)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.complementAddress) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-5 mb-5">
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.zipCode, 'Code Postal', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.zipCode, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 '
+                                ~ (field_errors(form.zipCode)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.zipCode) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 mb-5">
+                    <div class="col-start-2 col-span-2">
+                        {{ form_label(form.city, 'Ville', {'label_attr': {'class': 'block text-sm font-medium text-gray-200 required'}}) }}
+                        {{ form_widget(form.city, {
+                            'attr': {
+                                'class': 'mt-1 block w-full bg-gray-900 text-gray-200 border rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 '
+                                ~ (field_errors(form.city)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')
+                            }
+                        }) }}
+                        {% for field in field_errors(form.city) %}
+                            <li class="text-red-500 text-sm mt-1">{{ field }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-5 mb-5">
+                <div class="col-span-2">
+                    <div class="grid grid-cols-4 mb-5">
+                        <div class="col-start-2 col-span-2">
+                            <div class="flex justify-center">
+                                {{ form_widget(form.agreeTerms, {'attr': {
+                                    'class': 'h-4 w-4 rounded-lg mr-2 ' ~ (field_errors(form.agreeTerms)|length > 0 ? 'border-red-500 focus:ring-red-500' : 'border-gray-700 focus:ring-teal-500')}
+                                }) }}
+                                {{ form_label(form.agreeTerms, null, {'label_attr': {'class': 'text-sm font-medium text-gray-200 required'}}) }}
+                            </div>
+                            {% for field in field_errors(form.agreeTerms) %}
+                                <li class="text-red-500 text-sm mt-1 block text-center">{{ field }}</li>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button type="submit"
+                        class="px-4 py-2 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold rounded-md"
+                        {{ this.hasValidationErrors ? 'disabled' : ''}}>
+                    S'enregister
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        {% endif %}
+    </div>
+</div>
